@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inviron</title>
+
+    <!-- Handle of REM -->
+    <script>
+        ! function(e, i) {
+            var t = e.documentElement,
+                n = navigator.userAgent.match(/iphone|ipod|ipad/gi),
+                a = n ? Math.min(i.devicePixelRatio, 3) : 1,
+                m = "orientationchange" in window ? "orientationchange" : "resize";
+            t.dataset.dpr = a;
+            for (var d, l, c = !1, o = e.getElementsByTagName("meta"), r = 0; r < o.length; r++) l = o[r], "viewport" == l.name && (c = !0, d = l);
+            if (c) d.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no";
+            else {
+                var o = e.createElement("meta");
+                o.name = "viewport", o.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no", t.firstElementChild.appendChild(o)
+            }
+            var s = function() {
+                var e = t.clientWidth;
+                e / a > 1920 && (e = 1920 * a), window.remScale = e / 1920, t.style.fontSize = 100 * (e / 1920) + "px"
+            };
+            s(), e.addEventListener && i.addEventListener(m, s, !1)
+        }(document, window);
+    </script>
+
+    <!-- Inject CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Inject JS -->
+</head>
+
+<body>
+    <!-- CSS Namescape B-E_M -->
+    <div id="nav-tab" class="view-container">
+        <div class="tab-content unitBox cached"></div>
+        <div class="tab-content unitBox cached"></div>
+        <div class="tab-content unitBox cached"></div>
+        <div class="tab-content unitBox cached"></div>
+        <div class="tab-content unitBox cached"></div>
+        <div class="tab-bar tab-bottom">
+            <a data-href="" class="tab-button" tabid="home">
+                <i class="icon tab-button_icon icon-home"></i>
+                <span class="tab-button_txt">首页</span>
+            </a>
+            <a data-href="" class="tab-button icon-temp" tabid="home">
+                <i class="icon tab-button_icon"></i>
+                <span class="tab-button_txt">温度</span>
+            </a>
+            <a data-href="" class="tab-button" tabid="home">
+                <i class="icon tab-button_icon"></i>
+                <span class="tab-button_txt">空气质量</span>
+            </a>
+            <a data-href="" class="tab-button" tabid="home">
+                <i class="icon tab-button_icon"></i>
+                <span class="tab-button_txt">水质</span>
+            </a>
+            <a data-href="" class="tab-button" tabid="home">
+                <i class="icon tab-button_icon"></i>
+                <span class="tab-button_txt">噪音</span>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

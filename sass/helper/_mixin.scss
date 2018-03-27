@@ -1,0 +1,159 @@
+// tapColor
+@mixin tapColor($color: #fff) {
+    -webkit-tap-highlight-color: $color;
+}
+
+// border-line
+@mixin topLine($c: #ccc, $t: 0, $r: 0, $b: 0, $l: 0) {
+    content: " ";
+    position: absolute;
+    left: $l;
+    top: $t;
+    right: $r;
+    height: 1px;
+    border-top: 1px solid $c;
+    color: $c;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.501);
+    transform: scaleY(0.501);
+}
+
+@mixin bottomLine($c:rgba(207, 207, 207, .95), $r:0, $b:0, $l:0) {
+    content: " ";
+    position: absolute;
+    left: $l;
+    bottom: $b;
+    right: $r;
+    height: 1px;
+    border-bottom: 1px solid $c;
+    color: $c;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.501);
+    transform: scaleY(0.501);
+}
+
+@mixin leftLine($c:rgba(207, 207, 207, .95)) {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    border-left: 1px solid $c;
+    color: $c;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleX(0.501);
+    transform: scaleX(0.501);
+}
+
+@mixin rightLine($c:rgba(207, 207, 207, .95), $t:0, $r:0, $b:0) {
+    content: " ";
+    position: absolute;
+    right: $r;
+    top: $t;
+    bottom: $b;
+    width: 1px;
+    border-right: 1px solid $c;
+    color: $c;
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    -webkit-transform: scaleX(0.501);
+    transform: scaleX(0.501);
+}
+
+@mixin boxLine($c:rgba(207, 207, 207, .95), $b-r:0) {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 1px solid $c;
+    border-radius: $b-r;
+    color: $c;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scale(0.501);
+    transform: scale(0.501);
+    //防止误触
+    pointer-events: none;
+}
+
+.t-line {
+    position: relative;
+    &:before {
+        @include topLine();
+    }
+}
+
+.r-line {
+    position: relative;
+    &:before {
+        @include rightLine();
+    }
+}
+
+.b-line {
+    position: relative;
+    &:before {
+        @include bottomLine();
+    }
+}
+
+.l-line {
+    position: relative;
+    &:before {
+        @include leftLine();
+    }
+}
+
+.box-line {
+    position: relative;
+    &:before {
+        @include boxLine();
+    }
+}
+
+
+/**
+ * sass font size manage
+ * */
+
+// variables
+$p-font-sizes: ( null: 15px, 760px: 16px, 960px: 20px, 1360px: 24px, );
+$breakpoints: ( small: 760px, medium: 960px, large: 1360px, );
+@mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+    @each $fs-breakpoint,
+    $fs-font-size in $fs-map {
+        @if $fs-breakpoint==null {
+            font-size: $fs-font-size;
+        }
+        @else {
+            @if map-has-key($fs-breakpoints, $fs-breakpoint) {
+                $fs-breakpoint: map-get($fs-brekpoints, $fs-breakpoint);
+            }
+            @media screen and (min-width: $fs-breakpoint) {
+                font-size: $fs-font-size;
+            }
+        }
+    }
+}
+
+
+/**
+ * flexible
+ * */
+
+@function px2rem($px, $base-font-size: 100px) {
+    @if (unitless($px)) {
+        // @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels for you";
+        @return px2rem($px + 0px); // That may fail.
+    }
+    @else if (unit($px)==rem) {
+        @return $px;
+    }
+    @return ($px / $base-font-size) * 1rem;
+}

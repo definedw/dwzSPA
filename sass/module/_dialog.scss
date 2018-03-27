@@ -1,0 +1,71 @@
+$maskBackground: #000 !default;
+$popHeader: px2rem(80) !default;
+$popTitleColor: #fff !default;
+$popIconSize: px2rem(50) !default;
+$popWindowHeight: 100% !default;
+$popWindowWidth: 100% !default;
+.mask-background {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    @extend %fullSize;
+    opacity: 0.95;
+    background-color: $maskColor;
+    &.open {
+        display: block;
+    }
+}
+
+.pop-window {
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: $popWindowWidth;
+    height: $popWindowHeight;
+    z-index: 1000;
+    // background-color: inherit;
+    .pop-header {
+        position: relative;
+        @extend %flexBox;
+        align-items: center;
+        z-index: 10;
+        height: $popHeader;
+    }
+    .pop-header_title {
+        @extend %flexBox;
+        @extend %itemCenter;
+        font-size: px2rem(24);
+        color: $popTitleColor;
+    }
+    .pop-close {
+        @extend %flexBox;
+        @extend %itemCenter;
+        z-index: 1;
+        .icon {
+            width: $popIconSize;
+            height: $popIconSize;
+        }
+    }
+    .pop-content {
+        @extend %flurBlur;
+        top: $popHeader;
+    }
+    &.open {
+        display: block;
+    }
+    .pop-down_close {
+        @extend %flexBox;
+        @extend %itemCenter;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        .icon {
+            width: $popIconSize;
+            height: $popIconSize;
+        }
+    }
+}

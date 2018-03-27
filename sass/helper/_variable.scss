@@ -1,0 +1,94 @@
+$defaultLinkColor: #646464;
+$commonTxt: #fff;
+$normalTxt: #666;
+$tabTxt: #fdfdfd;
+$tabTxtActive:#00d7f5;
+$specialTxt:#00b8df;
+$itemColor: #6bc2df;
+%filterBlur {
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+// border-box
+%borderBox {
+    @include box-sizing(border-box);
+}
+
+// content-box
+%contentBox {
+    @include box-sizing(content-box);
+}
+
+// full-size
+%fullSize {
+    width: 100%;
+    height: 100%;
+}
+
+// flex-box
+%flexBox {
+    @include display-flex(flex);
+}
+
+// clearfix
+.clearfix {
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+    }
+}
+
+.devider {
+    display: -webkit-flex;
+    display: flex;
+    overflow: hidden;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 1rem;
+}
+
+// item-center
+%itemCenter {
+    @include justify-content(center);
+    @include align-items(center);
+}
+
+%contentCenter {
+    @include justify-content(center);
+}
+
+// flurBlur
+%flurBlur {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+// font
+$fontEN: -apple-system-font,
+"Helvetica Neue",
+"Roboto",
+"Segoe UI";
+$fontCN: "PingFang SC",
+"Hiragino Sans GB",
+"Microsoft YaHei";
+$fontSans: sans-serif;
+$fontDefault:$fontEN,
+$fontCN,
+$fontSans;
+// font-size
+$le_1: px2rem(72);
+$le_2: px2rem(44);
+$le_3: px2rem(36);
+$le_4: px2rem(30);
+$le_5: px2rem(26);

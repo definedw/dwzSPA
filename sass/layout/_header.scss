@@ -1,0 +1,27 @@
+$headerHeght: px2rem(120) !default;
+$headerBackground: #fff !default;
+$headerTxt: px2rem(72) !default;
+$headerColor: #000 !default;
+.header {
+    width: 100%;
+    height: $headerHeight;
+    position: relative;
+    @extend %flexBox;
+    justify-content: space-between;
+    align-items: center;
+    .header-background {
+        @extend %flurBlur;
+        background-color: $headerBackground;
+    }
+    .header-title {
+        font-size: $headerTxt;
+        color: $headerColor;
+        white-space: nowrap;
+    }
+    .header-toolbar {
+        @extend %flexBox;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header-button {}
+}

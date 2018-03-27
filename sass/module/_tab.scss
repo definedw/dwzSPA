@@ -1,0 +1,48 @@
+$tabItemWidth: px2rem(240) !default;
+$tabHeight: px2rem(80) !default;
+$tabTxt: px2rem(24) !default;
+$tabTxtColor: #fff !default;
+$tabIconSize: px2rem(50) !default;
+$tabBackground: #333 !default;
+.view-container {
+    @extend %flurBlur;
+    overflow: hidden;
+}
+
+.tab-bar {
+    @extend %flexBox;
+    @extend %itemCenter;
+    @include translateZ(0);
+    width: 100%;
+    height: inherit;
+    background-color: $tabBackground;
+    .tab-button {
+        @extend %flexBox;
+        @extend %itemCenter;
+        flex-direction: column;
+        flex: 1;
+        max-width: $tabItemWidth;
+    }
+}
+
+.tab-button_txt {
+    white-space: nowrap;
+    font-size: $tabTxt;
+    color: $tabTxtColor;
+}
+
+.tab-button_icon {
+    width: $tabIconSize;
+    height: $tabIconSize;
+}
+
+.tab-content {
+    @extend %flurBlur;
+    bottom: $tabHeight;
+    &.active {
+        display: block;
+    }
+    &.cached {
+        display: none;
+    }
+}

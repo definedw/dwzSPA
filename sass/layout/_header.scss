@@ -1,11 +1,13 @@
-$headerHeght: px2rem(120) !default;
+$headerHeight: px2rem(120) !default;
 $headerBackground: #fff !default;
 $headerTxt: px2rem(72) !default;
 $headerColor: #000 !default;
 .header {
-    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: $tabWidth;
     height: $headerHeight;
-    position: relative;
     @extend %flexBox;
     justify-content: space-between;
     align-items: center;
@@ -17,6 +19,7 @@ $headerColor: #000 !default;
         font-size: $headerTxt;
         color: $headerColor;
         white-space: nowrap;
+        line-height: 100%;
     }
     .header-toolbar {
         @extend %flexBox;
@@ -24,4 +27,8 @@ $headerColor: #000 !default;
         align-items: center;
     }
     .header-button {}
+}
+
+.tab-content.tab-col {
+    .header {}
 }

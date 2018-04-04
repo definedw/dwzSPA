@@ -1,5 +1,7 @@
 $tabItemWidth: px2rem(240) !default;
+$tabItemHeight: px2rem(120) !default;
 $tabHeight: px2rem(80) !default;
+$tabWidth: px2rem(120) !default;
 $tabTxt: px2rem(24) !default;
 $tabTxtColor: #fff !default;
 $tabIconSize: px2rem(50) !default;
@@ -23,6 +25,19 @@ $tabBackground: #333 !default;
         flex: 1;
         max-width: $tabItemWidth;
     }
+    &.tab-col {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: $tabWidth;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .tab-button {
+            max-height: $tabItemHeight;
+        }
+    }
 }
 
 .tab-button_txt {
@@ -38,7 +53,6 @@ $tabBackground: #333 !default;
 
 .tab-content {
     @extend %flurBlur;
-    bottom: $tabHeight;
     &.active {
         display: block;
     }

@@ -12,7 +12,7 @@ $popWindowWidth: 100% !default;
     left: 0;
     @extend %fullSize;
     opacity: 0.95;
-    background-color: $maskColor;
+    background-color: $maskBackground;
     &.open {
         display: block;
     }

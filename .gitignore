@@ -4,3 +4,15 @@
 
 ### sass ###
 .sass-cache/
+
+### moudles ###
+node_modules/
+
+### build ###
+build/
+
+
+### dist ###
+dist/
+
+npm-debug.log

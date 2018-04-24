@@ -9,24 +9,6 @@
 
     <!-- Handle of REM -->
     <script>
-        ! function(e, i) {
-            var t = e.documentElement,
-                n = navigator.userAgent.match(/iphone|ipod|ipad/gi),
-                a = n ? Math.min(i.devicePixelRatio, 3) : 1,
-                m = "orientationchange" in window ? "orientationchange" : "resize";
-            t.dataset.dpr = a;
-            for (var d, l, c = !1, o = e.getElementsByTagName("meta"), r = 0; r < o.length; r++) l = o[r], "viewport" == l.name && (c = !0, d = l);
-            if (c) d.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no";
-            else {
-                var o = e.createElement("meta");
-                o.name = "viewport", o.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no", t.firstElementChild.appendChild(o)
-            }
-            var s = function() {
-                var e = t.clientWidth;
-                e / a > 1920 && (e = 1920 * a), window.remScale = e / 1920, t.style.fontSize = 100 * (e / 1920) + "px"
-            };
-            s(), e.addEventListener && i.addEventListener(m, s, !1)
-        }(document, window);
     </script>
 
     <!-- Inject CSS -->
@@ -72,25 +54,25 @@
         <div class="tab-content unitBox cached"></div>
         <div class="tab-content unitBox cached"></div>
         <div class="tab-bar tab-bottom">
-            <a data-href="./tpl/home/index.html" class="tab-button" tabid="home">
+            <a data-href="./tpl/home/index.html" class="tab-button" tabid="Item1">
                 <i class="icon tab-button_icon icon-home"></i>
-                <span class="tab-button_txt">首页</span>
+                <span class="tab-button_txt">Item1</span>
             </a>
-            <a data-href="" class="tab-button icon-temp" tabid="home">
+            <a data-href="" class="tab-button icon-temp" tabid="Item2">
                 <i class="icon tab-button_icon"></i>
-                <span class="tab-button_txt">温度</span>
+                <span class="tab-button_txt">Item2</span>
             </a>
-            <a data-href="" class="tab-button" tabid="home">
+            <a data-href="" class="tab-button" tabid="Item3">
                 <i class="icon tab-button_icon"></i>
-                <span class="tab-button_txt">空气质量</span>
+                <span class="tab-button_txt">Item3</span>
             </a>
-            <a data-href="" class="tab-button" tabid="home">
+            <a data-href="" class="tab-button" tabid="Item4">
                 <i class="icon tab-button_icon"></i>
-                <span class="tab-button_txt">水质</span>
+                <span class="tab-button_txt">Item4</span>
             </a>
-            <a data-href="" class="tab-button" tabid="home">
+            <a data-href="" class="tab-button" tabid="Item5">
                 <i class="icon tab-button_icon"></i>
-                <span class="tab-button_txt">噪音</span>
+                <span class="tab-button_txt">Item5</span>
             </a>
         </div>
     </div>

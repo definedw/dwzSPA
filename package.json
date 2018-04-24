@@ -1,0 +1,57 @@
+{
+    "name": "dwzSPA",
+    "version": "0.0.1",
+    "description": "Prokect Template",
+    "main": "index.js",
+    "directories": {
+        "test": "gulp test",
+        "dev": "gulp dev",
+        "run": "gulp serve",
+        "prod": "gulp prod"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/definedw/dwzSPA.git"
+    },
+    "keywords": [],
+    "author": "Sanchuan",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/definedw/dwzSPA/issues"
+    },
+    "homepage": "https://github.com/definedw/dwzSPA#readme",
+    "dependencies": {
+        "gulp": "^3.9.1"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.23.6",
+        "cssnano": "^3.10.0",
+        "del": "^3.0.0",
+        "gulp": "^3.9.1",
+        "gulp-cache": "^1.0.2",
+        "gulp-changed": "^3.2.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-htmlmin": "^4.0.0",
+        "gulp-imagemin": "^4.1.0",
+        "gulp-md5-assets": "^1.0.1",
+        "gulp-minify-css": "^1.2.4",
+        "gulp-postcss": "^7.0.1",
+        "gulp-sourcemaps": "^2.6.4",
+        "gulp-uglify": "^3.0.0",
+        "gulp-util": "^3.0.8",
+        "imagemin-pngquant": "^5.1.0",
+        "postcss-cssnext": "^3.1.0",
+        "postcss-extend": "^1.0.5",
+        "postcss-import": "^11.1.0",
+        "postcss-mixins": "^6.2.0",
+        "postcss-nested": "^3.0.0",
+        "postcss-px2rem": "^0.3.0",
+        "postcss-simple-vars": "^4.1.0",
+        "postcss-size": "^2.0.0",
+        "precss": "^3.1.2",
+        "run-sequence": "^2.2.1"
+    }
+}

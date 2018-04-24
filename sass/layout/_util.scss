@@ -1,8 +1,0 @@
-.wrapper {
-    @extend %fullSize;
-}
-
-$test: #ffffff !default;
-.test {
-    color: $test;
-}

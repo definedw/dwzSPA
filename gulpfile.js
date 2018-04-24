@@ -51,7 +51,7 @@ gulp.task('min-html', () => {
         .src('./src/**/*.html')
         .pipe(htmlMin(options))
         .pipe(gulp.dest('dist'))
-        .pipe(md5(6))
+        .pipe(md5(10));
 })
 
 
@@ -72,28 +72,28 @@ gulp.task('postcss', () => {
         cssSize,
     ];
     return gulp
-        .src('./src/css/**/*.css')
-        .pipe(changed('./build'), { hasChanged: changed.compareSha1Digest })
+        .src('./src/css/*.css')
+        .pipe(changed('./build/css'), { hasChanged: changed.compareSha1Digest })
         .pipe(postcss(processors))
         .pipe(gulp.dest('build/css'))
         .pipe(browserSync.reload({ stream: true }));
 })
 
 gulp.task('min-css', ['postcss'], () => {
-    let processors = [cssNano()];
+    let processor = [cssNano()];
 
     return gulp
-        .src('./src/css/*.css')
-        .pipe(postcss(processors))
+        .src('./build/css/*.css')
+        .pipe(postcss(processor))
         .pipe(gulp.dest('dist/css'))
-        .pipe(md5(6), './dist/**/*.html');
+        .pipe(md5(10, './dist/**/*.html'));
 })
 
 /* js */
 gulp.task('script', () => {
     return gulp
         .src('./src/js/*.js')
-        .pipe(changed('./build'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('./build/js'), { hasChanged: changed.compareSha1Digest })
         .pipe(gulp.dest('./build/js'))
         .pipe(browserSync.reload({ stream: true }));
 })
@@ -103,16 +103,16 @@ gulp.task('min-script', () => {
         .src('./src/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'))
-        .pipe(md5(6), './dist/**/*.html');
+        .pipe(md5(10, './dist/**/*.html'));
 })
 
 
 /* images */
 
-gulp.task('move-img', function() {
+gulp.task('move-img', () => {
     return gulp
         .src('./src/images/**/*.*')
-        .pipe(changed('./build'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('./build/images'), { hasChanged: changed.compareSha1Digest })
         .pipe(gulp.dest('build/images'))
         .pipe(browserSync.reload({ stream: true }));
 })
@@ -126,7 +126,7 @@ gulp.task('min-img', () => {
             use: [pngquant()] // 使用pngquant插件进行深度压缩
         })))
         .pipe(gulp.dest('dist/images'))
-        .pipe(md5(6), './dist/**/*.{css,js,html}');
+        .pipe(md5(10, './dist/**/*.{css,js,html}'));
 })
 
 /* static */
@@ -178,9 +178,4 @@ gulp.task('serve', (cb) => {
     gulp.watch('src/css/**/*.css', ['postcss']);
     gulp.watch('src/images/**/*.*', ['move-img'])
     gulp.watch('src/js/*.js', ['script']);
-})
-
-gulp.task('test', function() {
-    return gulp.src('./src/**/*.html')
-        .pipe(gulp.dest('build'))
 })

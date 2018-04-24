@@ -1,0 +1,4 @@
+@define-mixin border $c:#ff0,
+$w: 1px {
+    border: solid $c $w;
+}

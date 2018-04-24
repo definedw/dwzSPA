@@ -4,13 +4,13 @@
     "description": "Prokect Template",
     "main": "index.js",
     "directories": {
-        "test": "gulp test",
-        "dev": "gulp dev",
-        "run": "gulp serve",
-        "prod": "gulp prod"
+        "test": "test"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "gulp min-css",
+        "start": "gulp dev",
+        "dev": "gulp serve",
+        "prod": "gulp prod"
     },
     "repository": {
         "type": "git",

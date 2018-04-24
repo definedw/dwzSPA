@@ -1,0 +1,10 @@
+@import "helper/mixin.css";
+.test {
+    @add-mixin border;
+    size: 40px 60px;
+}
+
+.hah {
+    font-size: 100px;
+    color: #000;
+}

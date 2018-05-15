@@ -7,16 +7,17 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     del = require('del'),
     sourcemaps = require('gulp-sourcemaps'),
-    cssMin = require('gulp-minify-css'),
     pngquant = require('imagemin-pngquant'),
     cache = require('gulp-cache'), //图片缓存
     changed = require('gulp-changed'),
     md5 = require('gulp-md5-assets'),
-    runSequence = require('run-sequence')
+    runSequence = require('run-sequence'),
+    gutil = require('gulp-util');
 
 // postcss
+
 var postcss = require('gulp-postcss');
-var px2rem = require('postcss-px2rem');
+var px2rem = require('postcss-pxtorem');
 var precss = require('precss');
 var postNested = require('postcss-nested');
 var postMixins = require('postcss-mixins');
@@ -33,9 +34,13 @@ var cssSize = require('postcss-size');
 gulp.task('move-html', () => {
     return gulp
         .src('./src/**/*.html')
-        .pipe(changed('./build'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('build', {
+            hasChanged: changed.compareSha1Digest
+        }))
         .pipe(gulp.dest('build'))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 })
 
 gulp.task('min-html', () => {
@@ -64,19 +69,26 @@ gulp.task('postcss', () => {
         postVars,
         postNested,
         postExtend,
-        cssNext({ browsers: ['last 1 version'] }),
+        cssNext({
+            browsers: ['last 1 version']
+        }),
         precss,
         px2rem({
-            remUnit: 100
+            rootValue: 100,
+            replace: false
         }),
         cssSize,
     ];
     return gulp
         .src('./src/css/*.css')
-        .pipe(changed('./build/css'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('build/css', {
+            hasChanged: changed.compareSha1Digest
+        }))
         .pipe(postcss(processors))
         .pipe(gulp.dest('build/css'))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 })
 
 gulp.task('min-css', ['postcss'], () => {
@@ -93,15 +105,22 @@ gulp.task('min-css', ['postcss'], () => {
 gulp.task('script', () => {
     return gulp
         .src('./src/js/*.js')
-        .pipe(changed('./build/js'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('build/js', {
+            hasChanged: changed.compareSha1Digest
+        }))
         .pipe(gulp.dest('./build/js'))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 })
 
-gulp.task('min-script', () => {
+gulp.task('min-script', function() {
     return gulp
         .src('./src/js/*.js')
         .pipe(uglify())
+        .on('error', function(err) {
+            gutil.log(gutil.colors.red('[Error]'), err.toString());
+        })
         .pipe(gulp.dest('dist/js'))
         .pipe(md5(10, './dist/**/*.html'));
 })
@@ -112,9 +131,13 @@ gulp.task('min-script', () => {
 gulp.task('move-img', () => {
     return gulp
         .src('./src/images/**/*.*')
-        .pipe(changed('./build/images'), { hasChanged: changed.compareSha1Digest })
+        .pipe(changed('build/images', {
+            hasChanged: changed.compareSha1Digest
+        }))
         .pipe(gulp.dest('build/images'))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 })
 
 gulp.task('min-img', () => {
@@ -122,7 +145,9 @@ gulp.task('min-img', () => {
         .src('./src/images/**/*.*')
         .pipe(cache(imageMin({
             progressive: true, // 无损压缩JPG图片
-            svgoPlugins: [{ removeViewBox: false }], // 不移除svg的viewbox属性
+            svgoPlugins: [{
+                removeViewBox: false
+            }], // 不移除svg的viewbox属性
             use: [pngquant()] // 使用pngquant插件进行深度压缩
         })))
         .pipe(gulp.dest('dist/images'))
@@ -133,14 +158,21 @@ gulp.task('min-img', () => {
 
 gulp.task('static-dev', () => {
     return gulp
-        .src('./src/static/**/*')
-        .pipe(gulp.dest('build/static'))
+        .src('./src/video/**/*')
+        .pipe(gulp.dest('build/video'))
 })
 
 gulp.task('static-prod', () => {
     return gulp
-        .src('./src/static/**/*')
-        .pipe(gulp.dest('dist/static'))
+        .src('./src/video/**/*')
+        .pipe(gulp.dest('dist/video'))
+})
+
+/* json */
+gulp.task('move-json', () => {
+    return gulp
+        .src('./src/*.json')
+        .pipe(gulp.dest('./dist'))
 })
 
 
@@ -153,21 +185,10 @@ gulp.task('clean-dist', (cb) => {
     return del(['dist/**/*', '!dist/static/*'], cb)
 })
 
-/* dev */
-
-gulp.task('dev', (cb) => {
-    runSequence('clean-build', 'move-html', ['postcss', 'script', 'static-dev'], 'move-img', (cb))
-})
-
-/* prod */
-
-gulp.task('prod', (cb) => {
-    runSequence('clean-dist', 'min-html', ['min-css', 'min-script', 'static-prod'], 'min-img', (cb))
-})
-
 /* serve */
 
-gulp.task('serve', (cb) => {
+gulp.task('serve', () => {
+
     browserSync.init({
         port: 2018,
         server: {
@@ -175,7 +196,25 @@ gulp.task('serve', (cb) => {
         }
     });
     gulp.watch('src/**/*.html', ['move-html']);
-    gulp.watch('src/css/**/*.css', ['postcss']);
+    gulp.watch('src/css/**/*', ['postcss']);
     gulp.watch('src/images/**/*.*', ['move-img'])
     gulp.watch('src/js/*.js', ['script']);
+})
+
+/* start */
+
+gulp.task('start', (cb) => {
+    runSequence('clean-build', 'move-html', ['postcss', 'script', 'static-dev'], 'move-img', (cb))
+})
+
+
+/* dev */
+gulp.task('dev', (cb) => {
+    runSequence('start', ['serve'])
+})
+
+/* prod */
+
+gulp.task('prod', (cb) => {
+    runSequence('clean-dist', 'min-html', ['min-css', 'min-script', 'static-prod'], 'min-img', 'move-json', (cb))
 })

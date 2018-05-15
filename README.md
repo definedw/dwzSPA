@@ -40,8 +40,8 @@ npm run prod
 ### Issue
 
 
-* forbiden `1px` into `rem` comment with `/*no*/`.
-* `*.css` have to comment with `/**/`.
+* ignore `1px` convert to `rem` with `1Px || 1PX`
+
 
 
 ### Promise

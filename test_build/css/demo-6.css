@@ -1,0 +1,63 @@
+*, *::after, *::before {
+    margin: 0;
+}
+
+html {
+    font-size: 100px;
+}
+
+body {
+    font-size: 16px;
+}
+
+.wrapper {
+    background-color: #fdfdfd;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.wrapper .nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+        top: 300px;
+    }
+
+.wrapper .nav.active {
+            -webkit-animation: aHaro 2s infinite;
+                    animation: aHaro 2s infinite;
+        }
+
+.wrapper .item {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        background-color: yellowgreen;
+        list-style: none;
+    }
+
+@-webkit-keyframes aHaro {
+    0% {
+        -webkit-transform: translateX(100px);
+                transform: translateX(100px);
+    }
+    50% {
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px)
+    }
+}
+
+@keyframes aHaro {
+    0% {
+        -webkit-transform: translateX(100px);
+                transform: translateX(100px);
+    }
+    50% {
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px)
+    }
+}

@@ -7,7 +7,7 @@
         "test": "test"
     },
     "scripts": {
-        "test": "gulp min-css",
+        "test": "gulp --gulpfile gulpfile.test.js dev",
         "start": "gulp dev",
         "dev": "gulp serve",
         "prod": "gulp prod"
@@ -50,6 +50,7 @@
         "postcss-pxtorem": "^4.0.1",
         "postcss-simple-vars": "^4.1.0",
         "postcss-size": "^2.0.0",
+        "postcss-utilities": "^0.8.0",
         "precss": "^3.1.2",
         "run-sequence": "^2.2.1"
     }

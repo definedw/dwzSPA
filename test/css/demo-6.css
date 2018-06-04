@@ -1,0 +1,45 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+}
+
+html {
+    font-size: 100px;
+}
+
+body {
+    font-size: 16px;
+}
+
+.wrapper {
+    background-color: #fdfdfd;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+        top: 300px;
+        &.active {
+            animation: aHaro 2s infinite;
+        }
+    }
+    .item {
+        @util circle(100px, yellowgreen);
+        list-style: none;
+    }
+}
+
+@keyframes aHaro {
+    0% {
+        transform: translateX(100px);
+    }
+    50% {
+        transform: translateY(100px)
+    }
+}

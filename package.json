@@ -8,8 +8,8 @@
     },
     "scripts": {
         "test": "gulp --gulpfile gulpfile.test.js dev",
-        "start": "gulp dev",
-        "dev": "gulp serve",
+        "start": "gulp start",
+        "dev": "gulp dev",
         "prod": "gulp prod"
     },
     "repository": {
@@ -27,6 +27,7 @@
         "gulp": "^3.9.1"
     },
     "devDependencies": {
+        "autoprefixer": "^9.0.1",
         "browser-sync": "^2.23.6",
         "cssnano": "^3.10.0",
         "del": "^3.0.0",
@@ -34,22 +35,18 @@
         "gulp-cache": "^1.0.2",
         "gulp-changed": "^3.2.0",
         "gulp-concat": "^2.6.1",
+        "gulp-error": "^0.1.4",
         "gulp-htmlmin": "^4.0.0",
         "gulp-imagemin": "^4.1.0",
         "gulp-md5-assets": "^1.0.1",
+        "gulp-plumber": "^1.2.0",
         "gulp-postcss": "^7.0.1",
+        "gulp-rename": "^1.3.0",
         "gulp-sourcemaps": "^2.6.4",
         "gulp-uglify": "^3.0.0",
-        "gulp-util": "^3.0.8",
         "imagemin-pngquant": "^5.1.0",
-        "postcss-cssnext": "^3.1.0",
-        "postcss-extend": "^1.0.5",
         "postcss-import": "^11.1.0",
-        "postcss-mixins": "^6.2.0",
-        "postcss-nested": "^3.0.0",
         "postcss-pxtorem": "^4.0.1",
-        "postcss-simple-vars": "^4.1.0",
-        "postcss-size": "^2.0.0",
         "postcss-utilities": "^0.8.0",
         "precss": "^3.1.2",
         "run-sequence": "^2.2.1"

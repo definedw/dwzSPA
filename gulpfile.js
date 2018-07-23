@@ -1,33 +1,28 @@
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     imageMin = require('gulp-imagemin'),
     htmlMin = require('gulp-htmlmin'),
     changed = require('gulp-changed'),
     browserSync = require('browser-sync').create(),
     del = require('del'),
-    sourcemaps = require('gulp-sourcemaps'),
     pngquant = require('imagemin-pngquant'),
     cache = require('gulp-cache'), //图片缓存
     changed = require('gulp-changed'),
     md5 = require('gulp-md5-assets'),
     runSequence = require('run-sequence'),
-    gutil = require('gulp-util');
+    errors = require('gulp-error'),
+    plumber = require('gulp-plumber'),
+    rename = require('gulp-rename');
 
 // postcss
 
 var postcss = require('gulp-postcss');
 var px2rem = require('postcss-pxtorem');
 var precss = require('precss');
-var postNested = require('postcss-nested');
-var postMixins = require('postcss-mixins');
-var postVars = require('postcss-simple-vars');
-var postExtend = require('postcss-extend');
 var postImport = require('postcss-import');
-var cssNext = require('postcss-cssnext');
 var cssNano = require('cssnano');
-var cssSize = require('postcss-size');
-
+var utils = require('postcss-utilities');
+var fixer = require('autoprefixer');
 
 /*  html */
 
@@ -65,24 +60,24 @@ gulp.task('min-html', () => {
 gulp.task('postcss', () => {
     let processors = [
         postImport,
-        postMixins,
-        postVars,
-        postNested,
-        postExtend,
-        cssNext({
-            browsers: ['last 1 version']
-        }),
         precss,
         px2rem({
             rootValue: 100,
-            replace: false
+            replace: true,
+            propList: ['*', '!border*']
         }),
-        cssSize,
+        fixer({
+            browsers: ["Android >= 4"]
+        }),
     ];
     return gulp
-        .src('./src/css/*.css')
+        .src('./src/css/*.pcss')
         .pipe(changed('build/css', {
             hasChanged: changed.compareSha1Digest
+        }))
+        .pipe(plumber())
+        .pipe(rename({
+            extname: '.css'
         }))
         .pipe(postcss(processors))
         .pipe(gulp.dest('build/css'))
@@ -105,6 +100,7 @@ gulp.task('min-css', ['postcss'], () => {
 gulp.task('script', () => {
     return gulp
         .src('./src/js/*.js')
+        .pipe(plumber())
         .pipe(changed('build/js', {
             hasChanged: changed.compareSha1Digest
         }))
@@ -154,27 +150,18 @@ gulp.task('min-img', () => {
         .pipe(md5(10, './dist/**/*.{css,js,html}'));
 })
 
-/* static */
 
-gulp.task('static-dev', () => {
+/* assets */
+gulp.task('assets', () => {
     return gulp
-        .src('./src/video/**/*')
-        .pipe(gulp.dest('build/video'))
+        .src(['src/*.json', 'src/static/*'], { base: 'src' })
+        .pipe(gulp.dest('build'))
 })
-
-gulp.task('static-prod', () => {
+gulp.task('prod-assets', () => {
     return gulp
-        .src('./src/video/**/*')
-        .pipe(gulp.dest('dist/video'))
+        .src(['src/*.json', 'src/static/*'], { base: 'src' })
+        .pipe(gulp.dest('dist'))
 })
-
-/* json */
-gulp.task('move-json', () => {
-    return gulp
-        .src('./src/*.json')
-        .pipe(gulp.dest('./dist'))
-})
-
 
 /* del */
 gulp.task('clean-build', (cb) => {
@@ -204,7 +191,7 @@ gulp.task('serve', () => {
 /* start */
 
 gulp.task('start', (cb) => {
-    runSequence('clean-build', 'move-html', ['postcss', 'script', 'static-dev'], 'move-img', (cb))
+    runSequence('clean-build', 'move-html', ['postcss', 'script', 'assets'], 'move-img', (cb))
 })
 
 
@@ -216,5 +203,5 @@ gulp.task('dev', (cb) => {
 /* prod */
 
 gulp.task('prod', (cb) => {
-    runSequence('clean-dist', 'min-html', ['min-css', 'min-script', 'static-prod'], 'min-img', 'move-json', (cb))
+    runSequence('clean-dist', 'min-html', ['min-css', 'min-script', 'prod-assets'], 'min-img', (cb))
 })

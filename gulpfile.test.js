@@ -1,23 +1,15 @@
 var gulp = require('gulp'),
-    htmlMin = require('gulp-htmlmin'),
     changed = require('gulp-changed'),
     browserSync = require('browser-sync').create(),
     del = require('del'),
-    sourcemaps = require('gulp-sourcemaps'),
-    pngquant = require('imagemin-pngquant'),
     changed = require('gulp-changed'),
     runSequence = require('run-sequence'),
-    gutil = require('gulp-util');
+    plumber = require('gulp-plumber');
+
 
 var postcss = require('gulp-postcss');
-var px2rem = require('postcss-pxtorem');
 var precss = require('precss');
-var postNested = require('postcss-nested');
-var postMixins = require('postcss-mixins');
-var postVars = require('postcss-simple-vars');
-var postExtend = require('postcss-extend');
 var postImport = require('postcss-import');
-var cssNext = require('postcss-cssnext');
 var util = require('postcss-utilities');
 
 gulp.task('move-html', () => {
@@ -37,18 +29,7 @@ gulp.task('move-html', () => {
 gulp.task('postcss', () => {
     let processors = [
         postImport,
-        postMixins,
-        postVars,
-        postNested,
-        postExtend,
-        cssNext({
-            browsers: ['last 1 version']
-        }),
         precss,
-        // px2rem({
-        //     rootValue: 100,
-        //     replace: false
-        // }),
         util,
     ];
     return gulp
@@ -57,6 +38,7 @@ gulp.task('postcss', () => {
         .pipe(changed('test_build/css', {
             hasChanged: changed.compareSha1Digest
         }))
+        .pipe(plumber())
         .pipe(postcss(processors))
         .pipe(gulp.dest('test_build/css'))
         .pipe(browserSync.reload({

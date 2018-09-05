@@ -1,0 +1,22 @@
+$tabHeight: 200px !default;
+
+.view-container {
+    @util position(absolute, 0 ,0,0,0);
+    overflow: hidden;
+}
+.content {
+    @extend %flurBlur;
+    overflow: hidden;
+}
+.view-content {
+    @util position(absolute, 120px,0,200px,0);
+}
+.scroll-content {
+    @util position(absolute, 0,0,0,0);
+    overflow: hidden;
+    .scroll {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+    }
+}

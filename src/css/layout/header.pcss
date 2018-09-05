@@ -1,0 +1,22 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    overflow: hidden;
+    z-index: 1;
+}
+.header-background {
+    @extend %flurBlur;
+    background-color: aqua;
+    z-index: -1;
+}
+.header-title {
+    @extend %flurBlur;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 90px;
+    transform: translateZ(0deg);
+}

@@ -12,7 +12,7 @@
     }
     var s = function() {
         var e = t.clientWidth;
-        e / a > 1920 && (e = 1920 * a), window.remScale = e / 1920, t.style.fontSize = 100 * (e / 1920) + "px"
+        e / a > 1080 && (e = 1080 * a), window.remScale = e / 1080, t.style.fontSize = 100 * (e / 1080) + "px"
     };
     s(), e.addEventListener && i.addEventListener(m, s, !1)
 }(document, window);

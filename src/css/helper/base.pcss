@@ -1,0 +1,57 @@
+html {
+    -webkit-touch-callout: none;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    @extend %fullSize;
+}
+
+body {
+    font-size: 16Px;
+    word-wrap: break-word;
+    font-family: $fontDefult;
+    text-rendering: optimizeLegibility;
+    -webkit-backface-visibility: hidden;
+    -webkit-user-drag: none;
+    overflow: hidden;
+    @extend %fullSize;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a img {
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+    @include tapColor(transparent);
+    color: $defaultLinkColor;
+}
+
+li {
+    list-style: none;
+}
+
+iframe {
+    border: none;
+    background: transparent;
+}
+

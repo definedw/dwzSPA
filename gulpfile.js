@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     del = require('del'),
     pngquant = require('imagemin-pngquant'),
-    cache = require('gulp-cache'), //图片缓存
     changed = require('gulp-changed'),
     md5 = require('gulp-md5-assets'),
     runSequence = require('run-sequence'),
@@ -23,6 +22,7 @@ var postImport = require('postcss-import');
 var cssNano = require('cssnano');
 var utils = require('postcss-utilities');
 var fixer = require('autoprefixer');
+var writesvg = require('postcss-write-svg');
 
 /*  html */
 
@@ -67,8 +67,10 @@ gulp.task('postcss', () => {
             propList: ['*', '!border*']
         }),
         fixer({
-            browsers: ["Android >= 4"]
+            browsers: ["Android >= 4.4"]
         }),
+        utils,
+        writesvg,
     ];
     return gulp
         .src('./src/css/*.pcss')
@@ -115,7 +117,7 @@ gulp.task('min-script', function() {
         .src('./src/js/*.js')
         .pipe(uglify())
         .on('error', function(err) {
-            gutil.log(gutil.colors.red('[Error]'), err.toString());
+            errors.log(errors.colors.red('[Error]'), err.toString());
         })
         .pipe(gulp.dest('dist/js'))
         .pipe(md5(10, './dist/**/*.html'));
@@ -154,22 +156,24 @@ gulp.task('min-img', () => {
 /* assets */
 gulp.task('assets', () => {
     return gulp
-        .src(['src/*.json', 'src/static/*'], { base: 'src' })
+        .src(['src/assets/*'], { base: 'src' })
         .pipe(gulp.dest('build'))
 })
+
 gulp.task('prod-assets', () => {
     return gulp
-        .src(['src/*.json', 'src/static/*'], { base: 'src' })
+        .src(['src/assets/*'], { base: 'src' })
         .pipe(gulp.dest('dist'))
 })
 
+
 /* del */
 gulp.task('clean-build', (cb) => {
-    return del(['build/**/*', '!build/images/*', '!build/static/*'], cb)
+    return del(['build/**/*', '!build/images/*', '!build/assets/*'], cb)
 })
 
 gulp.task('clean-dist', (cb) => {
-    return del(['dist/**/*', '!dist/static/*'], cb)
+    return del(['dist/**/*', '!dist/assets/*'], cb)
 })
 
 /* serve */

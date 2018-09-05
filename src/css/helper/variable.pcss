@@ -1,0 +1,80 @@
+$defaultLinkColor: #646464 !default;
+%filterBlur {
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+%borderBox {
+    box-sizing: border-box;
+}
+
+%contentBox {
+    box-sizing: content-box;
+}
+
+%fullSize {
+    @util size(100%);
+}
+
+%flexBox {
+    display: flex;
+}
+
+.clearfix {
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+    }
+}
+
+.devider {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 1rem;
+}
+
+%itemCenter {
+    justify-content: center;
+    align-items: center;
+}
+
+%contentCenter {
+    align-content: center;
+}
+
+%flurBlur {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+$fontEN: -apple-system-font,
+"Helvetica Neue",
+"Roboto",
+"Segoe UI";
+
+$fontCN: "PingFang SC",
+"Hiragino Sans GB",
+"Microsoft YaHei";
+
+$fontSans: sans-serif;
+$fontDefult: $fontCN,
+$fontEN,
+$fontSans;
+
+
+$l1: 60px;
+$l2: 44px;
+$l3: 40px;
+$l4: 36px;
+$l5: 30px;
+$l6: 26px;
